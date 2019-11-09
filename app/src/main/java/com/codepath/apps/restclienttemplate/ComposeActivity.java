@@ -48,16 +48,13 @@ public class ComposeActivity extends AppCompatActivity {
         etCompose.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(count > 140) {
-                    counter.setTextColor(Color.RED);
-                    btnTweet.setEnabled(false);
-                }
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(count <= 140) {
-                    counter.setText(count + " / 140");
+                if(s.length() <= 140) {
+                    counter.setText(String.valueOf(s.length()) + " / 140");
                     btnTweet.setEnabled(true);
                     counter.setTextColor(Color.GRAY);
                 }
@@ -65,7 +62,11 @@ public class ComposeActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                
+                if(s.length() > 140) {
+                    counter.setTextColor(Color.RED);
+                    btnTweet.setEnabled(false);
+                    counter.setText("140 / 140");
+                }
             }
         });
         //Set click listener on button
